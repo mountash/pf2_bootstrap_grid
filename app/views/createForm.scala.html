@@ -1,0 +1,16 @@
+@(computerForm: Form[Computer])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(helpers.twitterBootstrapInput.render) }
+
+@main {
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="titleComputerEditForm"> Computer Add Form</h4>
+    </div>
+    @helper.form(action = controllers.routes.Application.save(), 'class -> "form-horizontal") {
+        @_formFields(computerForm, "Add")
+    }
+
+}

@@ -1,0 +1,12 @@
+.actionsContainer{
+    height:35px;
+}
+.actionButtonsContainer{
+    float: left;
+}
+.pagingContainer{
+    float: right;
+}
+.pagingContainer .pagination{
+    margin: 0;
+}

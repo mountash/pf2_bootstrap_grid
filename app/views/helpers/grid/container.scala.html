@@ -1,0 +1,10 @@
+@(gridId: String, gridName: String)(content: Html = Html(""))
+
+<div class="panel panel-default gridPanel">
+    <div class="panel-heading">
+        <a class="pointer" data-toggle="collapse" data-target="#collapse@gridId">
+            @gridName
+        </a>
+    </div>
+    @content
+</div>

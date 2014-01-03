@@ -1,0 +1,107 @@
+@(page: com.avaje.ebean.Page[models.Computer], queryParams: views.helpers.grid.queryForms.QueryParams)
+
+@import controllers.routes._
+@import views.html.helpers.grid._
+@import views.html.helpers.grid.buttons._
+@import views.html.helpers.grid.pagination._
+@import views.html.helpers.grid.queryForms._
+@import views.html.helpers.grid.queryForms.inputs._
+@import views.helpers.grid.GridUtils
+@import views.helpers.grid.HeaderType
+
+
+    @defining("allComputers"){ gridId =>
+    @defining(Application.index.toString){ action =>
+		@container(gridId = gridId, gridName = "Computers"){
+			@queryForm(gridId = gridId, action = action){
+                @textInput(
+                    paramName = "searchFilter"
+                    , label = "Filter"
+                    , value = queryParams.get("searchFilter")
+                    , placeholder = "Filter"
+                )
+                @dateInput(
+                    paramName = "introducedDate"
+                    , label = "Introduced Date"
+                    , value = queryParams.get("introducedDate")
+                    , placeholder = "yyyy/mm/dd"
+                )
+                @submitButton(text = "Search")
+            }
+
+			@grid(gridId = gridId, withLoadMore = true){
+				@columns{
+                    @header(
+                        name = "Actions"
+                    )
+					@header(
+                        name = "Name"
+                        , sortAction = GridUtils.makeHeaderLink("name", queryParams, action)
+                        , sortIcon = GridUtils.getHeaderIcon("name", queryParams, HeaderType.TEXT)
+                    )
+					@header(
+                        name = "Introduced"
+                        , sortAction = GridUtils.makeHeaderLink("introduced", queryParams, action)
+                        , sortIcon = GridUtils.getHeaderIcon("introduced", queryParams, HeaderType.DATE)
+                    )
+                    @header(
+                        name = "Discontinued"
+                        , sortAction = GridUtils.makeHeaderLink("discontinued", queryParams, action)
+                        , sortIcon = GridUtils.getHeaderIcon("discontinued", queryParams, HeaderType.DATE)
+                    )
+					@header(
+                        name = "Company"
+                        , sortAction = GridUtils.makeHeaderLink("company", queryParams, action)
+                        , sortIcon = GridUtils.getHeaderIcon("company", queryParams, HeaderType.TEXT)
+                    )
+				}
+
+				@rows{
+					@for(curRow <- page.getList()){
+						@tr{
+                            @td(){
+                                @editButton(
+                                    action = Application.edit(curRow.id)
+                                )
+                                @deleteButton(
+                                    action = Application.delete(curRow.id)
+                                    , itemId = curRow.id.toString
+                                    , itemName = "Computer"
+                                )
+                            }
+							@td(
+                                content = curRow.name
+                                , title = "Name"
+                            )
+							@td(
+                                content = if(curRow.introduced != null) {curRow.introduced.format("dd MMM yyyy")}else{""}
+                                , title = "Introduced"
+                            )
+                            @td(
+                                content = if(curRow.discontinued != null) {curRow.discontinued.format("dd MMM yyyy")}else{""}
+                                , title = "Discontinued"
+                            )
+							@td(
+                                content = if(curRow.company != null) {curRow.company.name}else{""}
+                            )
+						}
+					}
+				}
+
+			}
+
+			@footer{
+				@buttonsContainer{
+                    @addButton(
+                        text = "Add Computer"
+                        , action = Application.create
+                        , gridId = gridId
+                        , gridReloadLink = GridUtils.makeCurrentLink(queryParams, action)
+                    )
+				}
+
+				@paging(GridUtils.getPagingConfig(page, action, queryParams))
+			}
+		}
+	}
+    }

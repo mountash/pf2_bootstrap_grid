@@ -1,0 +1,17 @@
+@(paramName: String, label: String, valuesMap: List[(String,String)], value: String)
+
+<div class="form-group">
+    <label class="sr-only" for="id_@paramName">@label</label>
+    <!-- Single button -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Select ... <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-form" role="menu">
+            @for((k, v) <- valuesMap){
+                <li><a href="#" value="@v">@k</a></li>
+            }
+        </ul>
+    </div>
+    <input type="hidden" class="form-control dropdown-input" id="id_@paramName" name="@paramName" value="@value">
+</div>

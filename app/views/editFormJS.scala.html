@@ -1,0 +1,42 @@
+@(id: Long, compForm: Form[models.Computer])
+
+$(function() {
+
+    function modifyComputer(){
+        var params = $('#compEditFormContainer form').serialize();
+        $('#modalCompEditForm').modal('hide');
+        $.ajax({
+            url: $('#compEditFormContainer form').attr('action')
+            ,headers: { 'Accept': 'application/javascript' }
+            ,method: 'POST'
+            ,data: params
+            ,beforeSend: showLoading
+            ,success: function(resp){
+                reloadTheGrid("allComputers",$('allComputers').attr('grid_reload_link'));
+            }
+            ,error: displayError
+            ,complete: hideLoading
+        });
+        return false;
+    }
+
+    if(!$("#compEditFormContainer").length)
+        $("body").append("<div id=\"compEditFormContainer\"><div class=\"modal fade\" id=\"modalCompEditForm\"><div class=\"modal-dialog\"><div class=\"modal-content\"></div></div></div></div>");
+
+    $('#compEditFormContainer').hide();
+
+    showLoading();
+
+    var editFormPage = '@views.html.editForm.render(id, compForm).toString().replaceAll("\t", "").replaceAll("\n", "")';
+    editFormPage = editFormPage.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
+    editFormPage = editFormPage.substring(editFormPage.indexOf('id="section_main">')+18,editFormPage.indexOf('</section>'));
+    $('#compEditFormContainer').hide();
+    $('#compEditFormContainer .modal-content').html(editFormPage);
+
+    $('#compEditFormContainer input.btn-success').click(modifyComputer);
+
+    $('#compEditFormContainer').show();
+    $('#modalCompEditForm').modal();
+    hideLoading();
+
+});

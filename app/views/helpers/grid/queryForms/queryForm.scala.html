@@ -1,0 +1,9 @@
+@(gridId: String, action: String)(content: Html=Html(""))
+
+<div id="collapse@gridId" class="panel-collapse collapse in">
+    <div class="panel-body queryFormContainer">
+        <form class="queryForm form-inline" role="form" id="queryForm@gridId" action="@action">
+            @content
+        </form>
+    </div>
+</div>

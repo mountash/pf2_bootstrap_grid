@@ -1,0 +1,11 @@
+@(gridId: String, withLoadMore: Boolean, gridReloadLink: String = "")(content: Html = Html(""))
+
+<div class="mainGridContainer">
+
+    <table class="table grid table-striped table-hover table-condensed " id="@gridId" grid_reload_link="@gridReloadLink">
+        @content
+    </table>
+    @if(withLoadMore){
+        <button type="button" class="btn btn-info btn-xs btn-block btnLoadMore">Load More</button>
+    }
+</div>

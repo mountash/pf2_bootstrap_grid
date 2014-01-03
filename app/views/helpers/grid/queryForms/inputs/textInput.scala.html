@@ -1,0 +1,6 @@
+@(paramName: String, label: String, value: String, placeholder: String)
+
+<div class="form-group">
+    <label class="sr-only" for="id_@paramName">@label</label>
+    <input type="text" class="form-control" id="id_@paramName" title="@label" name="@paramName" value="@value" placeholder="@placeholder">
+</div>

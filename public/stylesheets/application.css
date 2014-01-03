@@ -1,0 +1,26 @@
+.pointer{
+    cursor: pointer;
+}
+#loadingContainer {
+    height: 45px;
+    padding: 5px;
+    text-align:center;
+    font-size: 18px;
+    color: #428bca;
+    border: 2px solid #08c;
+    background-color: #eee;
+    display: none;
+    border-radius: 6px;
+    opacity: .6;
+    filter: Alpha(Opacity=60);
+    font-weight: bold;
+}
+
+#loadingContainer img{
+    padding-right:5px;
+}
+
+#dialogInfoMessage, #infoDialogContainer, #confirmDialogContainer{
+    min-width: 250px;
+    min-height: 70px;
+}

@@ -1,0 +1,5 @@
+@(content: String = "", title: String = null)(implicit HtmlContent: Html = Html(""))
+
+<td @if(title != null){title="@title"}>
+    @HtmlContent@content
+</td>

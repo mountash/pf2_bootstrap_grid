@@ -1,0 +1,17 @@
+@(conf: List[views.helpers.grid.pagination.PagingItem])
+
+@if(conf != null){
+<div class="pagingContainer">
+    <ul class="pagination">
+        @for(item <- conf){
+        <li class="@item.getCssClass()">
+            @if(item.getCssClass == "active"){
+            @item.getText()
+            }else{
+            <a href="@item.getAction()">@item.getText()</a>
+            }
+        </li>
+        }
+    </ul>
+</div>
+}

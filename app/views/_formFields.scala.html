@@ -1,0 +1,20 @@
+@(computerForm: Form[models.Computer], btnName: String)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(helpers.twitterBootstrapInput.render) }
+
+<div class="modal-body">
+    @helper.inputText(computerForm("name"), '_label -> "Computer name", 'size -> 30, 'class -> "form-control")
+    @helper.inputText(computerForm("introduced"), '_label -> "Introduced date", 'size -> 30, 'class -> "form-control", '_showConstraints -> false)
+    @helper.inputText(computerForm("discontinued"), '_label -> "Discontinued date", 'size -> 30, 'class -> "form-control", '_showConstraints -> false)
+    @helper.select(
+        computerForm("company.id"),
+        options(Company.options),
+        '_label -> "Company", '_default -> "-- Choose a company --",
+        '_showConstraints -> false
+    )
+</div>
+<div class="modal-footer">
+    <input type="submit" value="@btnName Computer" class="btn btn-success">
+</div>
